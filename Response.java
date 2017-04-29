@@ -1,4 +1,4 @@
-package myCalculator;
+package Calculator_Project;
 
 import java.awt.Button;
 
@@ -7,7 +7,7 @@ import java.awt.Button;
  * */
 public class Response {
 	//记录输入
-	private StringBuilder sb = new StringBuilder("c");
+	private StringBuilder sb = new StringBuilder();
 	//输入缓存区
 	private SetText st = new SetText();
 	//待处理文本
@@ -70,7 +70,7 @@ public class Response {
 	private void myDelete() {
 		// TODO Auto-generated method stub
 		sb.delete(0, sb.length());
-		sb.append("c");
+		
 	}
 
 

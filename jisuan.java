@@ -16,7 +16,7 @@
  * 
  * */
 
-package myCalculator;
+package Calculator_Project;
 
 import java.awt.TextField;
 import java.util.regex.Matcher;
@@ -28,7 +28,7 @@ public class jisuan {
 
 	private String str;
 	private String oldstr;//\\d+\\.*\\d*
-	private String reg1 = "\\([^()]+\\)";//∆•≈‰¿®∫≈
+	private String reg1 = "(((\\([^()]+\\))))";//∆•≈‰¿®∫≈
 	private String reg2 = "(([+,-,*,/,c]{0,1})(\\-{0,1}\\d+\\.{0,1}\\d*\\^\\-{0,1}\\d+\\.{0,1}\\d*))";//∆•≈‰÷∏ ˝
 	private String reg3 = "(([+,-,*,/,c]{0,1})(\\-{0,1}\\d+\\.{0,1}\\d*[*/]\\-{0,1}\\d+\\.{0,1}\\d*))";//∆•≈‰≥À≥˝
 	private String reg4 = "(([+,-,*,/,c]{0,1})(\\-{0,1}\\d+\\.{0,1}\\d*[+-]\\-{0,1}\\d+\\.{0,1}\\d*))";//∆•≈‰º”ºı
@@ -37,7 +37,7 @@ public class jisuan {
 	private String error = "Error : Illegal expression";
 
 	public jisuan(String string){
-		this.str = string;
+		this.str = "c"+string;
 		//System.out.println("string***"+string);
 	}
 	public String moniton(){
@@ -50,7 +50,7 @@ public class jisuan {
 			oldstr = str;
 			return str;	
 		}else{
-			System.out.println(str);
+//			System.out.println(str);
 			return error;
 		}
 
@@ -86,6 +86,7 @@ public class jisuan {
 		while((chaildStr = find(reg3)) != null){
 			String value = null;
 			String arrStr[] = chaildStr.split("[*/]");
+			
 			if(findSymbol(chaildStr,"\\*")){
 				value = math.multiply(arrStr[0],arrStr[1]);
 			}
@@ -99,7 +100,7 @@ public class jisuan {
 	private boolean findSymbol(String chaildStr, String reg) {
 		// TODO Auto-generated method stub
 		Pattern p = Pattern.compile(reg);
-		Matcher m = p.matcher(str);
+		Matcher m = p.matcher(chaildStr);
 		return m.find();
 	}
 	//∆•≈‰÷∏ ˝and «Û÷µ∑Ω∑®

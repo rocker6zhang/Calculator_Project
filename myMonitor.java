@@ -1,4 +1,4 @@
-package myCalculator;
+package Calculator_Project;
 /*
  * ÊÂ¼ş¼àÌı
  * */

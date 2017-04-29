@@ -1,4 +1,4 @@
-package myCalculator;
+package Calculator_Project;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
