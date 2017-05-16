@@ -10,7 +10,7 @@ public class myMath {
 	//ÇóÖ¸Êý
 	public String power(String base, String index){
 		value = Math.pow(Double.valueOf(base), Double.valueOf(index));
-		return String.format("%.6f", value);
+		return String.format("%."+acy+"f", value);
 		
 	}
 	//is plus
