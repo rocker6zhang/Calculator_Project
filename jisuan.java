@@ -18,7 +18,6 @@
 
 package Calculator_Project;
 
-import java.awt.TextField;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,8 +25,7 @@ public class jisuan {
 	myMath math = new myMath();
 
 
-	private String str;
-	private String oldstr;//\\d+\\.*\\d*
+	private String str;//\\d+\\.*\\d*
 	private String reg1 = "(((\\([^()]+\\))))";//匹配括号
 	private String reg2 = "(([+,-,*,/,c]{0,1})(\\-{0,1}\\d+\\.{0,1}\\d*\\^\\-{0,1}\\d+\\.{0,1}\\d*))";//匹配指数
 	private String reg3 = "(([+,-,*,/,c]{0,1})(\\-{0,1}\\d+\\.{0,1}\\d*[*/]\\-{0,1}\\d+\\.{0,1}\\d*))";//匹配乘除
@@ -35,26 +33,41 @@ public class jisuan {
 	
 	private String reg5 = "-*\\d*\\.{0,1}\\d*E*-*\\d*";
 	private String error = "Error : Illegal expression";
-
+	static int num = 0;
+	int count  = 0;
 	public jisuan(String string){
 		this.str = "c"+string;
+		num++;
+		this.count = num;
 		//System.out.println("string***"+string);
 	}
 	public String moniton(){
 		brackets();
+		//System.out.println(count+"**"+"括号：--"+str);
 		power();
+//		System.out.println(count+"**"+"指数：--"+str);
 		no1();
+//		System.out.println(count+"**"+"乘除：--"+str);
 		no2();
-		str = str.substring(1, str.length());
+//		System.out.println(count+"**"+"加减：--"+str);
+		
+		//处理最终结果
+		finalValue(str);
+		
 		if(isRight()){
-			oldstr = str;
 			return str;	
 		}else{
-//			System.out.println(str);
+			//System.out.println("****eroo"+str);
 			return error;
 		}
 
 
+	}
+	private void finalValue(String str2) {
+		str = str.substring(1, str.length());
+		if(str.startsWith("+")){
+			str = str.substring(1, str.length());
+		}
 	}
 	//匹配加减法and 求值方法
 	private void no2() {
@@ -93,10 +106,33 @@ public class jisuan {
 			else{
 				value = math.exsept(arrStr[0],arrStr[1]);
 			}
+			//System.out.println("1value = "+value);
+			//处理value,假如是正数的话 添加符号“+”
+			value = addSymbol(value);
+			
 			str = str.replace(chaildStr, value);
+			//System.out.println("value = "+value);
+			//处理符号错误
+			isError();
 		}
 	}
 
+	private void isError() {
+		//str = str.replaceAll("--", "+");
+		str = str.replaceAll("[-][-]", "+");
+		str = str.replaceAll("[+][+]", "+");
+		str = str.replaceAll("[+-][+-]", "-");
+	}
+	private String addSymbol(String value) {
+		//double dou = Double.valueOf(value);
+		if(!value.startsWith("-")){
+			return "+"+value;
+		}
+		return value;
+		
+		
+		
+	}
 	private boolean findSymbol(String chaildStr, String reg) {
 		// TODO Auto-generated method stub
 		Pattern p = Pattern.compile(reg);
@@ -171,6 +207,9 @@ public class jisuan {
 	//is final
 	public boolean isRight(){
 		return str.matches(reg5);
+	}
+	public String getStr() {
+		return str;
 	}
 
 
